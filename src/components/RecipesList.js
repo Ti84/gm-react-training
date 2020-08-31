@@ -5,7 +5,10 @@ const RecipesList = ({ recipes }) => {
   return (
     <div>
       {recipes && recipes.length ? (
-        <div>{recipes.map(recipe => <div key={recipe.idMeal}>{recipe.strMeal}</div>)}</div>
+        <div className="recipe-list">{recipes.map(recipe => <div key={recipe.idMeal} className="recipe-card">
+            <img src={recipe.strMealThumb} alt={recipe.strMeal}/>
+            <h3>{recipe.strMeal}</h3>
+          </div>)}</div>
       ) : (
         <div>No Recipes found!</div>
       )}

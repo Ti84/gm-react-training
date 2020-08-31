@@ -41,7 +41,7 @@
 .app-header input {
   padding: 10px;
   background-color: var(--background);
-  color: var( --primary);
+  color: var(--primary);
   border-color: var(--tertiary);
   font-weight: bold;
   font-size: 24px;
@@ -80,4 +80,45 @@
 .filter-list .selected-filter {
   background-color: var(--primary);
   color: var(--background);
+}
+
+.recipe-list {
+  display: flex;
+  padding: 40px;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+.recipe-card {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+  text-align: center;
+  margin: 25px;
+}
+
+@media only screen and (min-width: 1300px) {
+  .recipe-list {
+    max-width: 80vw;
+  }
+  .recipe-card {
+    width: 250px;
+  }
+}
+
+@media only screen and (min-width: 740px) {
+  .recipe-list {
+    width: 100%;
+    justify-content: start;
+  }
+}
+
+.recipe-card img {
+  width: 250px;
 }
