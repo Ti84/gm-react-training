@@ -1,3 +1,47 @@
+/* https://coolors.co/ */
+:root {
+  --background: #02111b;
+  --primary: #8aea92;
+  --secondary: #80ada0;
+  --tertiary: #d4c2fc;
+  --fourthtiary-question-mark: #ffe2d1;
+}
+
 .App {
   font-family: 'Baloo Chettan 2', cursive;
+  background-color: var(--background);
+  color: var(--primary);
+  height: 100vh;
+  overflow: auto;
+}
+.App a {
+  text-decoration: none;
+}
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.app-header h1 {
+  color: var(--primary);
+  padding-left: 25px;
+  font-size: 2.5em;
+  display: inline-block;
+}
+
+.app-header form {
+  padding-right: 25px;
+}
+
+.app-header input {
+  padding: 10px;
+  background-color: var(--background);
+  color: var( --primary);
+  border-color: var(--tertiary);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.app-header input:last-child {
+  margin-left: 10px;
 }
