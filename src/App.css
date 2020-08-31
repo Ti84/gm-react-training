@@ -103,6 +103,10 @@
   margin: 25px;
 }
 
+.recipe-card {
+  color: var(--primary);
+}
+
 @media only screen and (min-width: 1300px) {
   .recipe-list {
     max-width: 80vw;
