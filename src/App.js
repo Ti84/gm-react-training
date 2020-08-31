@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RecipesList from './components/RecipesList';
 import AppNav from './components/AppNav';
+import RecipeFilters from './components/RecipeFilters';
 
 function App() {
   const [mealName, setMealName] = useState('');
@@ -16,9 +17,8 @@ function App() {
       );
       const json = await data.json();
       setRecipes(json && json.meals);
-      console.log(json.meals);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -38,6 +38,7 @@ function App() {
         />
         <Switch>
           <Route path="/">
+            <RecipeFilters />
             <RecipesList recipes={recipes} />
           </Route>
         </Switch>

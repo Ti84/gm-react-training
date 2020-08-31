@@ -14,6 +14,11 @@
   height: 100vh;
   overflow: auto;
 }
+
+.App input {
+  border: 1px solid;
+  border-radius: 5px;
+}
 .App a {
   text-decoration: none;
 }
@@ -44,4 +49,35 @@
 
 .app-header input:last-child {
   margin-left: 10px;
+  cursor: pointer;
+}
+
+.filter-list {
+  padding: 0 25px;
+}
+.filter-list ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline-start: 0;
+}
+
+.filter-list li {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-list input {
+  background-color: var(--background);
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  border-color: var(--tertiary);
+  cursor: pointer;
+}
+
+.filter-list.selected-filter {
+  background-color: var(--primary);
+  color: var(--background);
 }
