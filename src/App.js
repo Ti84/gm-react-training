@@ -31,6 +31,7 @@ function App() {
 
   const handleFilter = ({ target }) => {
     setFilter(target.value);
+    setMealName('');
     fetchRecipes(
       `https://www.themealdb.com/api/json/v1/1/filter.php?${target.getAttribute(
         'data-filter'
