@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const RecipeFilters = () => {
+const RecipeFilters = ({ handleFilter, activeFilter }) => {
   const [categories, setCategories] = useState([]);
   const [areas, setAreas] = useState([]);
 
@@ -28,7 +28,15 @@ const RecipeFilters = () => {
         <ul>
           {areas.map(({ strArea }) => (
             <li key={strArea}>
-              <input type="button" value={strArea} />
+              <input
+                type="button"
+                value={strArea}
+                data-filter="a"
+                onClick={(e) => handleFilter(e)}
+                className={
+                  activeFilter === strArea ? 'selected-filter' : ''
+                }
+              />
             </li>
           ))}
         </ul>
@@ -38,7 +46,15 @@ const RecipeFilters = () => {
         <ul>
           {categories.map(({ strCategory }) => (
             <li key={strCategory}>
-              <input type="button" value={strCategory} />
+              <input
+                type="button"
+                value={strCategory}
+                data-filter="c"
+                onClick={(e) => handleFilter(e)}
+                className={
+                  activeFilter === strCategory ? 'selected-filter' : ''
+                }
+              />
             </li>
           ))}
         </ul>

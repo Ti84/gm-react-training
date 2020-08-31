@@ -9,12 +9,11 @@ import RecipeFilters from './components/RecipeFilters';
 function App() {
   const [mealName, setMealName] = useState('');
   const [recipes, setRecipes] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  const fetchRecipeByName = async () => {
+  const fetchRecipes = async (url) => {
     try {
-      const data = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
-      );
+      const data = await fetch(url);
       const json = await data.json();
       setRecipes(json && json.meals);
     } catch (e) {
@@ -23,9 +22,20 @@ function App() {
   };
 
   const recipeSearch = (e) => {
-    // prevent html form post.
     e.preventDefault();
-    fetchRecipeByName();
+    setFilter('');
+    fetchRecipes(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
+    );
+  };
+
+  const handleFilter = ({ target }) => {
+    setFilter(target.value);
+    fetchRecipes(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?${target.getAttribute(
+        'data-filter'
+      )}=${target.value}`
+    );
   };
 
   return (
@@ -38,7 +48,7 @@ function App() {
         />
         <Switch>
           <Route path="/">
-            <RecipeFilters />
+            <RecipeFilters handleFilter={handleFilter} activeFilter={filter} />
             <RecipesList recipes={recipes} />
           </Route>
         </Switch>

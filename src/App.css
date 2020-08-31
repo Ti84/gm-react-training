@@ -77,7 +77,7 @@
   cursor: pointer;
 }
 
-.filter-list.selected-filter {
+.filter-list .selected-filter {
   background-color: var(--primary);
   color: var(--background);
 }

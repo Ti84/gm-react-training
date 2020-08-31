@@ -11,6 +11,7 @@ const AppNav = ({ handleRecipeSearch, mealName, setMealName }) => {
           type="text"
           aria-label="recipe name"
           placeholder="Search recipe by name"
+          value={mealName}
           onChange={({ target }) => setMealName(target.value)}
         />
         <input type="submit" value="Search" />
