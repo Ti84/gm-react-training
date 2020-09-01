@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RecipesList from './components/RecipesList';
 import AppNav from './components/AppNav';
 import RecipeFilters from './components/RecipeFilters';
+import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   const [mealName, setMealName] = useState('');
@@ -48,9 +49,12 @@ function App() {
           setMealName={setMealName}
         />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <RecipeFilters handleFilter={handleFilter} activeFilter={filter} />
             <RecipesList recipes={recipes} />
+          </Route>
+          <Route path="/:recipeId">
+            <RecipeDetails />
           </Route>
         </Switch>
       </BrowserRouter>
