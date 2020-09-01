@@ -126,3 +126,12 @@
 .recipe-card img {
   width: 250px;
 }
+
+.recipe-details {
+  padding: 0 30px;
+}
+
+.recipe-details-list {
+  list-style: none;
+  padding-inline-start: 0;
+}
