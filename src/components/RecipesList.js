@@ -8,7 +8,7 @@ const RecipesList = ({ recipes }) => {
       {recipes && recipes.length ? (
         <div className="recipe-list">
           {recipes.map((recipe) => (
-            <RecipeCard recipe={recipe} />
+            <RecipeCard key={recipe.idMeal} recipe={recipe} />
           ))}
         </div>
       ) : (

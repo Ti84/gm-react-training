@@ -105,10 +105,11 @@
   width: 250px;
   text-align: center;
   margin: 25px;
+  color: var(--primary);
 }
 
-.recipe-card {
-  color: var(--primary);
+.recipe-card.slow-network{
+  border: 1px solid var(--secondary);
 }
 
 @media only screen and (min-width: 1300px) {
@@ -142,4 +143,15 @@
 .recipe-details-list {
   list-style: none;
   padding-inline-start: 0;
+}
+
+.app-header-form {
+  display: flex;
+  align-content: center;
+}
+
+.app-header-form label {
+  display: flex;
+  align-items: center;
+  padding-right: 25px;
 }

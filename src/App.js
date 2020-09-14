@@ -6,6 +6,7 @@ import RecipesList from './components/RecipesList';
 import RecipeFilters from './components/RecipeFilters';
 import './Normalize.css';
 import './App.css';
+import NetworkWrapper from './components/NetworkWrapper';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +16,14 @@ class App extends React.Component {
       recipes: [],
       filter: '',
     };
-  
     this.handleFilter = this.handleFilter.bind(this);
-  
   }
 
   fetchRecipes = async (url) => {
     try {
       const data = await fetch(url);
       const json = await data.json();
+      console.log(json);
       this.setState({ ...this.state, recipes: json && json.meals });
     } catch (e) {
       console.error(e);
@@ -47,6 +47,11 @@ class App extends React.Component {
       )}=${target.value}`
     );
   }
+
+  setMealName = (mealName) => {
+    this.setState({ ...this.state, mealName });
+  };
+
   // handleFilter = ({ target }) => {
   //   this.setState({ ...this.state, filter: target.value, mealName: '' });
   //   this.fetchRecipes(
@@ -58,27 +63,30 @@ class App extends React.Component {
 
   render() {
     const { mealName, filter, recipes } = this.state;
+
     return (
       <div className="App">
-        <BrowserRouter>
-          <AppNav
-            handleRecipeSearch={this.recipeSearch}
-            mealName={mealName}
-            setMealName={this.setMealName}
-          />
-          <Switch>
-            <Route exact path="/">
-              <RecipeFilters
-                handleFilter={this.handleFilter}
-                activeFilter={filter}
-              />
-              <RecipesList recipes={recipes} />
-            </Route>
-            <Route path="/:recipeId">
-              <RecipeDetails />
-            </Route>
-          </Switch>
-        </BrowserRouter>
+        <NetworkWrapper>
+          <BrowserRouter>
+            <AppNav
+              handleRecipeSearch={this.recipeSearch}
+              mealName={mealName}
+              setMealName={this.setMealName}
+            />
+            <Switch>
+              <Route exact path="/">
+                <RecipeFilters
+                  handleFilter={this.handleFilter}
+                  activeFilter={filter}
+                />
+                <RecipesList recipes={recipes} />
+              </Route>
+              <Route path="/:recipeId">
+                <RecipeDetails />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </NetworkWrapper>
       </div>
     );
   }
