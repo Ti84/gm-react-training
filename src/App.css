@@ -93,6 +93,10 @@
   justify-content: center;
 }
 
+.resources a {
+  color: var(--fourthtiary-question-mark);
+}
+
 .recipe-card {
   display: flex;
   justify-self: center;
@@ -129,6 +133,10 @@
 
 .recipe-details {
   padding: 0 30px;
+}
+
+.recipe-details h3 {
+  color: var(--tertiary);
 }
 
 .recipe-details-list {
