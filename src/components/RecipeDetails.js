@@ -6,19 +6,21 @@ const RecipeDetails = () => {
   const [recipeDetails, setRecipeDetails] = useState(null);
 
   const getFilteredIngredients = (mealData) => {
-    let filteredIngredients = [];
+    if (mealData) {
+      let filteredIngredients = [];
 
-    // Setup ingredient data
-    for (let i = 0; i < 20; i++) {
-      if (mealData[`strIngredient${i + 1}`]) {
-        filteredIngredients.push(
-          `${mealData[`strIngredient${i + 1}`]} - ${
-            mealData[`strMeasure${i + 1}`]
-          }`
-        );
+      // Setup ingredient data
+      for (let i = 0; i < 20; i++) {
+        if (mealData[`strIngredient${i + 1}`]) {
+          filteredIngredients.push(
+            `${mealData[`strIngredient${i + 1}`]} - ${
+              mealData[`strMeasure${i + 1}`]
+            }`
+          );
+        }
       }
+      return filteredIngredients;
     }
-    return filteredIngredients;
   };
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const RecipeDetails = () => {
     fetchRecipe();
   }, [recipeId]);
 
-  const ingredients = useMemo(getFilteredIngredients(recipeDetails), [
+  const ingredients = useMemo(() => getFilteredIngredients(recipeDetails), [
     recipeDetails,
   ]);
 

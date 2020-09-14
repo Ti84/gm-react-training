@@ -8,11 +8,17 @@ import './Normalize.css';
 import './App.css';
 
 class App extends React.Component {
-  state = {
-    mealName: '',
-    recipes: [],
-    filter: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      mealName: '',
+      recipes: [],
+      filter: '',
+    };
+  
+    this.handleFilter = this.handleFilter.bind(this);
+  
+  }
 
   fetchRecipes = async (url) => {
     try {
@@ -32,14 +38,23 @@ class App extends React.Component {
     );
   };
 
-  handleFilter = ({ target }) => {
+  // use this as an example of how es6 arroy functions can help with the context of this.
+  handleFilter({ target }) {
     this.setState({ ...this.state, filter: target.value, mealName: '' });
     this.fetchRecipes(
       `https://www.themealdb.com/api/json/v1/1/filter.php?${target.getAttribute(
         'data-filter'
       )}=${target.value}`
     );
-  };
+  }
+  // handleFilter = ({ target }) => {
+  //   this.setState({ ...this.state, filter: target.value, mealName: '' });
+  //   this.fetchRecipes(
+  //     `https://www.themealdb.com/api/json/v1/1/filter.php?${target.getAttribute(
+  //       'data-filter'
+  //     )}=${target.value}`
+  //   );
+  // };
 
   render() {
     const { mealName, filter, recipes } = this.state;
