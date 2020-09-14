@@ -43,9 +43,13 @@ const RecipeDetails = () => {
     fetchRecipe();
   }, [recipeId]);
 
+  if (!recipeDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="recipe-details">
-      {recipeDetails ? (
+      {recipeDetails && (
         <div>
           <h2>
             {recipeDetails.strMeal} - {recipeDetails.strArea}
@@ -86,8 +90,6 @@ const RecipeDetails = () => {
             </div>
           </section>
         </div>
-      ) : (
-        <h2>Loading...</h2>
       )}
     </div>
   );
