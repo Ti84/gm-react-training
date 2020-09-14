@@ -1,65 +1,72 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AppNav from './components/AppNav';
+import RecipeDetails from './components/RecipeDetails';
+import RecipesList from './components/RecipesList';
+import RecipeFilters from './components/RecipeFilters';
 import './Normalize.css';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import RecipesList from './components/RecipesList';
-import AppNav from './components/AppNav';
-import RecipeFilters from './components/RecipeFilters';
-import RecipeDetails from './components/RecipeDetails';
 
-function App() {
-  const [mealName, setMealName] = useState('');
-  const [recipes, setRecipes] = useState([]);
-  const [filter, setFilter] = useState('');
+class App extends React.Component {
+  state = {
+    mealName: '',
+    recipes: [],
+    filter: '',
+  };
 
-  const fetchRecipes = async (url) => {
+  fetchRecipes = async (url) => {
     try {
       const data = await fetch(url);
       const json = await data.json();
-      setRecipes(json && json.meals);
+      this.setState({ ...this.state, recipes: json && json.meals });
     } catch (e) {
       console.error(e);
     }
   };
 
-  const recipeSearch = (e) => {
+  recipeSearch = (e) => {
     e.preventDefault();
-    setFilter('');
-    fetchRecipes(
-      `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
+    this.setState({ ...this.state, filter: '' });
+    this.fetchRecipes(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.state.mealName}`
     );
   };
 
-  const handleFilter = ({ target }) => {
-    setFilter(target.value);
-    setMealName('');
-    fetchRecipes(
+  handleFilter = ({ target }) => {
+    this.setState({ ...this.state, filter: target.value, mealName: '' });
+    this.fetchRecipes(
       `https://www.themealdb.com/api/json/v1/1/filter.php?${target.getAttribute(
         'data-filter'
       )}=${target.value}`
     );
   };
 
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <AppNav
-          handleRecipeSearch={recipeSearch}
-          mealName={mealName}
-          setMealName={setMealName}
-        />
-        <Switch>
-          <Route exact path="/">
-            <RecipeFilters handleFilter={handleFilter} activeFilter={filter} />
-            <RecipesList recipes={recipes} />
-          </Route>
-          <Route path="/:recipeId">
-            <RecipeDetails />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
+  render() {
+    const { mealName, filter, recipes } = this.state;
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <AppNav
+            handleRecipeSearch={this.recipeSearch}
+            mealName={mealName}
+            setMealName={this.setMealName}
+          />
+          <Switch>
+            <Route exact path="/">
+              <RecipeFilters
+                handleFilter={this.handleFilter}
+                activeFilter={filter}
+              />
+              <RecipesList recipes={recipes} />
+            </Route>
+            <Route path="/:recipeId">
+              <RecipeDetails />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;
