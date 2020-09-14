@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
   const [recipeDetails, setRecipeDetails] = useState(null);
-  const [ingredients, setIngredients] = useState([]);
+
+  const getFilteredIngredients = (mealData) => {
+    let filteredIngredients = [];
+
+    // Setup ingredient data
+    for (let i = 0; i < 20; i++) {
+      if (mealData[`strIngredient${i + 1}`]) {
+        filteredIngredients.push(
+          `${mealData[`strIngredient${i + 1}`]} - ${
+            mealData[`strMeasure${i + 1}`]
+          }`
+        );
+      }
+    }
+    return filteredIngredients;
+  };
 
   useEffect(() => {
-    const getFilteredIngredients = (mealData) => {
-      let filteredIngredients = [];
-
-      // Setup ingredient data
-      for (let i = 0; i < 20; i++) {
-        if (mealData[`strIngredient${i + 1}`]) {
-          filteredIngredients.push(
-            `${mealData[`strIngredient${i + 1}`]} - ${
-              mealData[`strMeasure${i + 1}`]
-            }`
-          );
-        }
-      }
-      return filteredIngredients;
-    };
-
     const fetchRecipe = async () => {
       try {
         const data = await fetch(
@@ -31,17 +30,17 @@ const RecipeDetails = () => {
         const json = await data.json();
         const mealData = json.meals[0];
 
-        const filteredIngredients = getFilteredIngredients(mealData);
-
         setRecipeDetails(mealData);
-        setIngredients(filteredIngredients);
       } catch (e) {
         console.error(e);
       }
     };
-
     fetchRecipe();
   }, [recipeId]);
+
+  const ingredients = useMemo(getFilteredIngredients(recipeDetails), [
+    recipeDetails,
+  ]);
 
   if (!recipeDetails) {
     return <div>Loading...</div>;
